@@ -91,4 +91,9 @@ main {
     aspect-ratio: 1 / 1;
     height: 5rem;
     width: 5rem;
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: monospace, sans-serif;
+    color: rgb(218, 218, 218);
 }
