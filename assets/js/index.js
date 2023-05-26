@@ -1,38 +1,49 @@
-let currentTileCount = 0;
-let submitted = true;
+let currTile = 0;
+let prevTile = 0;
+let word = '';
+let wordOfDay = '';
 
+// Define the URL for the word of the day API
+const WORD_URL = "https://words.dev-apis.com/word-of-the-day";
 
+// Async function to fetch the word of the day
+async function getWord() {
+    try {
+        // Send a GET request to the word of the day API and wait for the response
+        const promise = await fetch(WORD_URL);
+        // Parse the response as JSON and store it in the 'wordOfDay' variable
+        const response = await promise.json();
+        wordOfDay = response.word
+        console.log(response.word);
+    } catch (err) {
+        alert(err);
+    }
+};
+
+// Invoke the 'getWord' function to start fetching the word of the day
+getWord();
+
+// Handle wrong keystroke, checks if keystroke is letter
+function isLetter(letter) {
+    return /^[A-Za-z]$/.test(letter);
+};
+
+// Handle keystroke
 document.addEventListener('keydown', (event) => {
-    let regEx = /^[A-Za-z]+$/;
-    const rows = [5, 10, 15, 20, 25];
-
-    // if current row is incomplete, allow user to type in letters or use backspace to delete last letter.
-    if (submitted || event.key.toLowerCase() === 'backspace') {
-        if (event.key.toLowerCase() === 'backspace' && currentTileCount !== 0) {
-            currentTileCount -= 1;
-            document.getElementById('letter-' + currentTileCount).innerHTML = '';
-        } else if (event.key.match(regEx) && event.key.length == 1) {
-            document.getElementById('letter-' + currentTileCount).innerHTML = event.key;
-            currentTileCount += 1;
-        }
-        console.log(currentTileCount)
-    } else {
-        console.log(currentTileCount)
+    if (isLetter(event.key) && word.length < 5) {
+        // Set pressed key as the content of the current tile
+        document.getElementById('letter-' + currTile).innerHTML = event.key;
+        word += event.key;
+        currTile += 1;
+    } else if (event.key === 'Backspace' && currTile > 0 && currTile > prevTile) {
+        // Remove the content of the previous tile if backspace is pressed
+        currTile -= 1;
+        document.getElementById('letter-' + currTile).innerHTML = '';
+        word = word.slice(0, -1);
+    } else if (event.key === 'Enter' && word.length === 5) {
+        // Move to the next word if Enter is pressed and word length is 5
+        prevTile += 5;
+        word = '';
     }
-
-    // if current row is finished, disable user from typing in next row.
-    if (rows.includes(currentTileCount)) {
-        submitted = false;
-    } else {
-        submitted = true;
-    }
-
-
-    // lets user submit input and type in next row.
-    if (event.key.toLowerCase() === 'enter' && !submitted) {
-        submitted = true;
-    }
-
-    // once a row is submitted user cannot go back to that row
-
+    console.log(word + ' : ' + currTile);
 });
