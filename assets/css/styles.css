@@ -92,8 +92,21 @@ main {
     height: 5rem;
     width: 5rem;
     font-size: 3rem;
+    font-weight: bold;
     text-transform: uppercase;
     text-align: center;
     font-family: monospace, sans-serif;
     color: rgb(218, 218, 218);
+}
+
+.green {
+    background-color: rgb(72, 146, 72);
+}
+
+.yellow {
+    background-color: rgb(183, 167, 74);
+}
+
+.grey {
+    background-color: rgb(135, 137, 138);
 }
