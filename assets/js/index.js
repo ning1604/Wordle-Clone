@@ -1,7 +1,29 @@
+const buttons = document.querySelectorAll('.btn');
+const deleteBtn = document.querySelector('.btn-del');
+const enterBtn = document.querySelector('.btn-enter');
 let currTile = 0;
 let prevTile = 0;
 let word = '';
 let wordOfDay = '';
+
+// Handle letter input using on-screen keyboard
+buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        letterInput(btn.innerText.toLowerCase());
+    })
+})
+
+// Handle 'backspace' when using on-screen keyboard
+deleteBtn.addEventListener('click', () => {
+    let input = 'Backspace';
+    letterInput(input);
+})
+
+// Handle 'enter' when using on-screen keyboard
+enterBtn.addEventListener('click', () => {
+    let input = 'Enter';
+    letterInput(input);
+})
 
 // Define the URL for the word of the day API
 const WORD_URL = "https://words.dev-apis.com/word-of-the-day";
@@ -146,18 +168,24 @@ function greyLetter() {
 }
 
 // Handle keystroke
-document.addEventListener('keydown', async (event) => {
-    if (isLetter(event.key) && word.length < 5) {
+document.addEventListener('keydown', (e) => {
+    let letter = e.key;
+    letterInput(letter)
+})
+
+// Handle letter input
+async function letterInput(event) {
+    if (isLetter(event) && word.length < 5) {
         // Set pressed key as the content of the current tile
-        document.getElementById('letter-' + currTile).innerHTML = event.key;
-        word += event.key;
+        document.getElementById('letter-' + currTile).innerHTML = event;
+        word += event;
         currTile += 1;
-    } else if (event.key === 'Backspace' && currTile > 0 && currTile > prevTile) {
+    } else if (event === 'Backspace' && currTile > 0 && currTile > prevTile) {
         // Remove the content of the previous tile if backspace is pressed
         currTile -= 1;
         document.getElementById('letter-' + currTile).innerHTML = '';
         word = word.slice(0, -1);
-    } else if (event.key === 'Enter' && word.length === 5 && await validateWord(word)) {
+    } else if (event === 'Enter' && word.length === 5 && await validateWord(word)) {
         greenLetter(word);
         yellowLetter(word);
         greyLetter();
@@ -167,4 +195,4 @@ document.addEventListener('keydown', async (event) => {
         word = '';
     }
     console.log(word + ' : ' + currTile);
-});
+}
