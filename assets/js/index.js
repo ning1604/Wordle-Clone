@@ -23,6 +23,26 @@ async function getWord() {
 // Invoke the 'getWord' function to start fetching the word of the day
 getWord();
 
+// fetch call to check if user inputted word is valid
+async function validateWord(input) {
+    try {
+        const response = await fetch('https://words.dev-apis.com/validate-word', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                word: input
+            })
+        });
+        const data = await response.json();
+        const result = data.validWord;
+        return result;
+    } catch (err) {
+        alert(err);
+    };
+};
+
 // Handle wrong keystroke, checks if keystroke is letter
 function isLetter(letter) {
     return /^[A-Za-z]$/.test(letter);
@@ -81,7 +101,7 @@ function ifGreenTile(letter) {
     let result = false;
     for (let j = 0; j < 5; j++) {
         let elementTwo = document.getElementById('letter-' + (currTile - (5 - j)));
-        
+
         if (elementTwo.classList.contains('green') && elementTwo.innerHTML == letter) {
             result = true;
             break;
@@ -94,7 +114,7 @@ function ifGreenTile(letter) {
 function greyLetter() {
     for (let k = 0; k < 5; k++) {
         let greyTile = document.getElementById('letter-' + (currTile - (5 - k)));
-        
+
         if (!greyTile.classList.contains('green') && !greyTile.classList.contains('yellow')) {
             greyTile.classList.add('grey');
         }
@@ -102,7 +122,7 @@ function greyLetter() {
 }
 
 // Handle keystroke
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', async (event) => {
     if (isLetter(event.key) && word.length < 5) {
         // Set pressed key as the content of the current tile
         document.getElementById('letter-' + currTile).innerHTML = event.key;
@@ -113,7 +133,7 @@ document.addEventListener('keydown', (event) => {
         currTile -= 1;
         document.getElementById('letter-' + currTile).innerHTML = '';
         word = word.slice(0, -1);
-    } else if (event.key === 'Enter' && word.length === 5) {
+    } else if (event.key === 'Enter' && word.length === 5 && await validateWord(word)) {
         greenLetter(word);
         yellowLetter(word);
         greyLetter();
