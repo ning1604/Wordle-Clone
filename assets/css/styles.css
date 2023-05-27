@@ -56,12 +56,21 @@ body {
     background-color: #181818;
 }
 
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    width: 100vw;
+}
+
 main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
+    position: relative;
 }
 
 .title {
@@ -114,4 +123,27 @@ main {
 
 .grey {
     background-color: rgb(135, 137, 138);
+}
+
+/* spinner */
+.loader {
+    position: absolute;
+    top: 7rem;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    margin: 2rem 0 3rem 0;
+    background: conic-gradient(#0000 10%, rgb(218, 218, 218));
+        -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 0.45rem), #000 0);
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+.active {
+    display: none;
 }

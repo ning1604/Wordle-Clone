@@ -26,6 +26,7 @@ getWord();
 // fetch call to check if user inputted word is valid
 async function validateWord(input) {
     try {
+        toggleSpinner()
         const response = await fetch('https://words.dev-apis.com/validate-word', {
             method: 'POST',
             headers: {
@@ -36,6 +37,7 @@ async function validateWord(input) {
             })
         });
         const data = await response.json();
+        toggleSpinner()
         const result = data.validWord;
         if (result === false) {
             invalidWord()
@@ -54,6 +56,11 @@ function invalidWord() {
             document.getElementById('letter-' + i).classList.remove('wrong');
         }, 500)
     }
+}
+
+// toggle spinner visibility
+function toggleSpinner() {
+    document.getElementById('spinner').classList.toggle('active');
 }
 
 // Handle wrong keystroke, checks if keystroke is letter
