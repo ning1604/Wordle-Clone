@@ -50,7 +50,7 @@ async function validateWord(input) {
 
 // Handle invalid word
 function invalidWord() {
-    for (let i = currTile - 5; i < 5; i++) {
+    for (let i = currTile - 5; i < currTile; i++) {
         document.getElementById('letter-' + i).classList.add('wrong');
         setTimeout(() => {
             document.getElementById('letter-' + i).classList.remove('wrong');
