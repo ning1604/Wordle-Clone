@@ -87,12 +87,20 @@ main {
     margin-bottom: 0.75rem;
 }
 
+.flex-row-keeb {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
 /* board styling */
 
 .board-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: 2rem;
 }
 
 .tile {
@@ -146,4 +154,26 @@ main {
 
 .active {
     display: none;
+}
+
+/* keyboard styling */
+.keyboard-container {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.key {
+    color: rgb(218, 218, 218);
+    font-weight: 700;
+    font-size: 2rem;
+    font-family: monospace, sans-serif;
+    text-transform: uppercase;
+    background-color: rgba(226, 226, 226, 0.169);
+    height: 4rem;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
 }
