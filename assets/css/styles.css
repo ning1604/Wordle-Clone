@@ -107,7 +107,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: solid rgba(226, 226, 226, 0.099) 3px;
+    border: solid rgba(226, 226, 226, 0.166) 3px;
     height: 5rem;
     width: 5rem;
     font-size: 3rem;
@@ -156,7 +156,7 @@ main {
     font-size: 2rem;
     font-family: monospace, sans-serif;
     text-transform: uppercase;
-    background-color: rgba(226, 226, 226, 0.099);
+    background-color: rgb(135, 137, 138);
     padding: 1rem 1.25rem;
     display: flex;
     justify-content: center;
@@ -226,7 +226,7 @@ main {
 
 /* validate letter colors */
 .grey {
-    background-color: rgb(135, 137, 138);
+    background-color: rgba(226, 226, 226, 0.099);
 }
 
 .yellow {
