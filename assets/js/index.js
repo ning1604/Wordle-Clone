@@ -76,7 +76,7 @@ function checkWord(word1, word2) {
         } else if (currTile === 30) {
             return alert('you lose, the word was ' + word2 + '.');
         };
-    }, 100);
+    }, 200);
 };
 
 // Handle the guess's correct letter in the correct space (the green squares)
@@ -85,6 +85,7 @@ function greenLetter(word) {
         if (word[i] === wordOfDay[i]) {
             let greenTile = currTile - (5 - i)
             document.getElementById('letter-' + greenTile).classList.add('green');
+            document.getElementById('key-' + word[i]).classList.add('green');
         }
     }
 };
@@ -109,10 +110,12 @@ function yellowLetter(word) {
 // Handle color of tile
 function addTileColor(tileIndex, letter) {
     let elementOne = document.getElementById('letter-' + tileIndex).classList;
-    if (elementOne.contains('green') || ifGreenTile(letter)) {
+    let keyElement = document.getElementById('key-' + letter).classList;
+    if (elementOne.contains('green') || ifGreenTile(letter) || keyElement.contains('green')) {
         return
     } else {
         elementOne.add('yellow');
+        keyElement.add('yellow');
     }
 };
 
@@ -137,6 +140,7 @@ function greyLetter() {
 
         if (!greyTile.classList.contains('green') && !greyTile.classList.contains('yellow')) {
             greyTile.classList.add('grey');
+            document.getElementById('key-' + greyTile.innerHTML).classList.add('grey');
         }
     }
 }

@@ -1,3 +1,7 @@
+:root {
+    --bg-color: rgba(226, 226, 226, 0.099);
+}
+
 /* css resets */
 *,
 *::before,
@@ -122,18 +126,6 @@ main {
     border-color: rgb(213, 77, 43);
 }
 
-.green {
-    background-color: rgb(72, 146, 72);
-}
-
-.yellow {
-    background-color: rgb(183, 167, 74);
-}
-
-.grey {
-    background-color: rgb(135, 137, 138);
-}
-
 /* spinner */
 .loader {
     display: block;
@@ -168,7 +160,7 @@ main {
     font-size: 2rem;
     font-family: monospace, sans-serif;
     text-transform: uppercase;
-    background-color: rgba(226, 226, 226, 0.169);
+    background-color: var(--bg-color);
     padding: 1rem 1.25rem;
     display: flex;
     justify-content: center;
@@ -220,4 +212,17 @@ main {
         gap: 0.5rem;
         margin-bottom: 0.5rem;
     }
+}
+
+/* validate letter colors */
+.grey {
+    background-color: rgb(135, 137, 138);
+}
+
+.yellow {
+    background-color: rgb(183, 167, 74);
+}
+
+.green {
+    background-color: rgb(72, 146, 72);
 }
