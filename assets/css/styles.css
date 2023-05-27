@@ -97,6 +97,11 @@ main {
     text-align: center;
     font-family: monospace, sans-serif;
     color: rgb(218, 218, 218);
+    transition: border 200ms ease-in;
+}
+
+.wrong {
+    border-color: rgb(213, 77, 43);
 }
 
 .green {

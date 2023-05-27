@@ -37,11 +37,24 @@ async function validateWord(input) {
         });
         const data = await response.json();
         const result = data.validWord;
+        if (result === false) {
+            invalidWord()
+        }
         return result;
     } catch (err) {
         alert(err);
     };
 };
+
+// Handle invalid word
+function invalidWord() {
+    for (let i = currTile - 5; i < 5; i++) {
+        document.getElementById('letter-' + i).classList.add('wrong');
+        setTimeout(() => {
+            document.getElementById('letter-' + i).classList.remove('wrong');
+        }, 500)
+    }
+}
 
 // Handle wrong keystroke, checks if keystroke is letter
 function isLetter(letter) {
