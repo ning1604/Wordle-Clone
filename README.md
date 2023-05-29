@@ -23,4 +23,4 @@ Remember, the objective is to deduce the correct word within the given number of
 
 ## Example
 
-![Screenshot of wordle with the example word trace entered in](assets\wordleClone.jpg)
+![Screenshot of wordle with the example word trace entered in](assets/wordleClone.jpg)
