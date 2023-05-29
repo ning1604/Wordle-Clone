@@ -52,6 +52,7 @@ getWord();
 async function validateWord(input) {
     try {
         toggleSpinner()
+        hasEntered = true
         const response = await fetch('https://words.dev-apis.com/validate-word', {
             method: 'POST',
             headers: {
@@ -63,6 +64,7 @@ async function validateWord(input) {
         });
         const data = await response.json();
         toggleSpinner()
+        hasEntered = false
         const result = data.validWord;
         if (result === false) {
             invalidWord()
@@ -176,12 +178,12 @@ async function letterInput(event) {
         document.getElementById('letter-' + currTile).innerHTML = event;
         word += event;
         currTile += 1;
-    } else if (event === 'Backspace' && currTile > 0 && currTile > prevTile) {
+    } else if (event === 'Backspace' && currTile > 0 && currTile > prevTile && hasEntered === false) {
         // Remove the content of the previous tile if backspace is pressed
         currTile -= 1;
         document.getElementById('letter-' + currTile).innerHTML = '';
         word = word.slice(0, -1);
-    } else if (event === 'Enter' && word.length === 5 && await validateWord(word)) {
+    } else if (event === 'Enter' && word.length === 5 && await validateWord(word) && hasEntered === false) {
         greenLetter(word);
         yellowLetter(word);
         greyLetter();
@@ -191,3 +193,6 @@ async function letterInput(event) {
         word = '';
     }
 };
+
+// Prevent user from repeatedly pressing enter 
+let hasEntered = false;
