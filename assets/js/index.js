@@ -1,6 +1,7 @@
 const buttons = document.querySelectorAll('.btn');
 const deleteBtn = document.querySelector('.btn-del');
 const enterBtn = document.querySelector('.btn-enter');
+const WORD_URL = "https://words.dev-apis.com/word-of-the-day";
 let currTile = 0;
 let prevTile = 0;
 let word = '';
@@ -25,8 +26,11 @@ enterBtn.addEventListener('click', () => {
     letterInput(input);
 })
 
-// Define the URL for the word of the day API
-const WORD_URL = "https://words.dev-apis.com/word-of-the-day";
+// Handle keystroke
+document.addEventListener('keydown', (e) => {
+    let letter = e.key;
+    letterInput(letter)
+})
 
 // Async function to fetch the word of the day
 async function getWord() {
@@ -36,7 +40,6 @@ async function getWord() {
         // Parse the response as JSON and store it in the 'wordOfDay' variable
         const response = await promise.json();
         wordOfDay = response.word
-        console.log(response.word);
     } catch (err) {
         alert(err);
     }
@@ -70,7 +73,7 @@ async function validateWord(input) {
     };
 };
 
-// Handle invalid word
+// If invalid word, add the class 'wrong' indicating to user word is invalid
 function invalidWord() {
     for (let i = currTile - 5; i < currTile; i++) {
         document.getElementById('letter-' + i).classList.add('wrong');
@@ -80,12 +83,12 @@ function invalidWord() {
     }
 }
 
-// toggle spinner visibility
+// Toggle spinner visibility
 function toggleSpinner() {
     document.getElementById('spinner').classList.toggle('active');
 }
 
-// Handle wrong keystroke, checks if keystroke is letter
+// Handle wrong keystroke, checks if keystroke is single letter
 function isLetter(letter) {
     return /^[A-Za-z]$/.test(letter);
 };
@@ -117,19 +120,18 @@ function yellowLetter(word) {
     let yellowLetters = [];
 
     for (let i = 0; i < 5; i++) {
-        // yellowTile gives position of tile to be changed to yellow
+        // YellowTile gives position of tile to be changed to yellow
         let yellowTile = currTile - (5 - word.indexOf(word[i]));
 
         if (wordOfDay.includes(word[i]) && !yellowLetters.includes(`${word[i]}:${yellowTile}`)) {
             yellowLetters.push(`${word[i]}:${yellowTile}`)
             ifGreenTile(word[i])
             addTileColor(yellowTile, word[i])
-        };
-    };
-    console.log(yellowLetters);
+        }
+    }
 };
 
-// Handle color of tile
+// Handle tile color change to yellow
 function addTileColor(tileIndex, letter) {
     let elementOne = document.getElementById('letter-' + tileIndex).classList;
     let keyElement = document.getElementById('key-' + letter).classList;
@@ -141,7 +143,7 @@ function addTileColor(tileIndex, letter) {
     }
 };
 
-// Checks if current word already has green tile, if so return true
+// Checks if current word already has the same letter with green tile, if so return true
 function ifGreenTile(letter) {
     let result = false;
     for (let j = 0; j < 5; j++) {
@@ -167,16 +169,10 @@ function greyLetter() {
     }
 }
 
-// Handle keystroke
-document.addEventListener('keydown', (e) => {
-    let letter = e.key;
-    letterInput(letter)
-})
-
 // Handle letter input
 async function letterInput(event) {
     if (isLetter(event) && word.length < 5) {
-        // Set pressed key as the content of the current tile
+        // Set pressed key as the content of the current tile, add letter to word variable and update current tile variable
         document.getElementById('letter-' + currTile).innerHTML = event;
         word += event;
         currTile += 1;
@@ -194,5 +190,4 @@ async function letterInput(event) {
         prevTile += 5;
         word = '';
     }
-    console.log(word + ' : ' + currTile);
-}
+};

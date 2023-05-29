@@ -1,3 +1,12 @@
+/* variables */
+:root {
+    --primary-color: rgb(135, 137, 138);
+    --secondary-color: rgb(218, 218, 218);
+    --tertiary-color: rgb(64, 64, 64);
+    --background-color: #181818;
+    --primary-font:  monospace, sans-serif;
+}
+
 /* css resets */
 *,
 *::before,
@@ -53,7 +62,7 @@ h6 {
 /* general styling */
 
 body {
-    background-color: #181818;
+    background-color: var(--background-color);
 }
 
 header {
@@ -74,9 +83,9 @@ main {
 }
 
 .title {
-    font-family: monospace, sans-serif;
+    font-family: var(--primary-font);
     font-size: 3rem;
-    color: rgb(218, 218, 218);
+    color: var(--secondary-color);
 }
 
 /* utilities */
@@ -107,28 +116,24 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: solid rgba(226, 226, 226, 0.166) 3px;
+    border: solid var(--tertiary-color) 3px;
     height: 5rem;
     width: 5rem;
     font-size: 3rem;
     font-weight: bold;
     text-transform: uppercase;
-    font-family: monospace, sans-serif;
-    color: rgb(218, 218, 218);
+    font-family: var(--primary-font);
+    color: var(--secondary-color);
     transition: all 200ms ease-in;
 }
 
-.wrong {
-    border-color: rgb(213, 77, 43);
-}
-
-/* spinner */
+/* Spinner styling */
 .loader {
     display: block;
     height: 3rem;
     width: 3rem;
     border-radius: 50%;
-    background: conic-gradient(#0000 10%, rgb(218, 218, 218));
+    background: conic-gradient(#0000 10%, var(--secondary-color));
     -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 0.45rem), #000 0);
     animation: spin 1s infinite linear;
 }
@@ -143,7 +148,7 @@ main {
     visibility: hidden;
 }
 
-/* keyboard styling */
+/* Keyboard styling */
 .keyboard-container {
     display: flex;
     flex-direction: column;
@@ -151,12 +156,12 @@ main {
 }
 
 .key {
-    color: rgb(218, 218, 218);
+    color: var(--secondary-color);
     font-weight: 700;
     font-size: 2rem;
-    font-family: monospace, sans-serif;
+    font-family: var(--primary-font);
     text-transform: uppercase;
-    background-color: rgb(135, 137, 138);
+    background-color: var(--primary-color);
     padding: 1rem 1.25rem;
     display: flex;
     justify-content: center;
@@ -165,18 +170,20 @@ main {
 }
 
 .key:hover {
-    background-color: rgba(226, 226, 226, 0.053);
+    opacity: 0.6;
     cursor: pointer;
 }
 
 .key:active {
-    background-color: rgba(226, 226, 226, 0.179);
+    opacity: 1;
 }
 
 .btn, .btn-del, .btn-enter {
     text-decoration: none;
     border: none;
 }
+
+/* Styling for page responsiveness */
 
 @media screen and (max-width: 760px) {
     .tile {
@@ -224,15 +231,22 @@ main {
     }
 }
 
-/* validate letter colors */
+/* Validate letter colors */
 .grey {
-    background-color: rgba(226, 226, 226, 0.099);
+    background-color: var(--tertiary-color);
+    border-color: transparent;
 }
 
 .yellow {
     background-color: rgb(183, 167, 74);
+    border-color: transparent;
 }
 
 .green {
     background-color: rgb(72, 146, 72);
+    border-color: transparent;
+}
+
+.wrong {
+    border-color: rgb(213, 77, 43);
 }
