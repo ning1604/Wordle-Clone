@@ -6,6 +6,7 @@ let currTile = 0;
 let prevTile = 0;
 let word = '';
 let wordOfDay = '';
+let hasWon = false;
 
 // Handle letter input using on-screen keyboard
 buttons.forEach(btn => {
@@ -99,6 +100,7 @@ function isLetter(letter) {
 function checkWord(word1, word2) {
     setTimeout(function () {
         if (word1 === word2) {
+            hasWon = true;
             return alert('you win! :)');
         } else if (currTile === 30) {
             return alert('you lose, the word was ' + word2 + '.');
@@ -173,17 +175,17 @@ function greyLetter() {
 
 // Handle letter input
 async function letterInput(event) {
-    if (isLetter(event) && word.length < 5) {
+    if (isLetter(event) && word.length < 5 && hasWon === false) {
         // Set pressed key as the content of the current tile, add letter to word variable and update current tile variable
         document.getElementById('letter-' + currTile).innerHTML = event;
         word += event;
         currTile += 1;
-    } else if (event === 'Backspace' && currTile > 0 && currTile > prevTile && hasEntered === false) {
+    } else if (event === 'Backspace' && currTile > 0 && currTile > prevTile && hasEntered === false && hasWon === false) {
         // Remove the content of the previous tile if backspace is pressed
         currTile -= 1;
         document.getElementById('letter-' + currTile).innerHTML = '';
         word = word.slice(0, -1);
-    } else if (event === 'Enter' && word.length === 5 && await validateWord(word) && hasEntered === false) {
+    } else if (event === 'Enter' && word.length === 5 && await validateWord(word) && hasEntered === false && hasWon === false) {
         greenLetter(word);
         yellowLetter(word);
         greyLetter();
